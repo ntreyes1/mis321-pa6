@@ -63,7 +63,6 @@ public static Inventory GetInventoryById(int id)
         newInventory.onHold = rdr.GetBoolean("onHold");
         newInventory.isDeleted = rdr.GetBoolean("isDeleted");
        
-        // Add other properties as needed
     }
 
     con.Close();
@@ -123,7 +122,7 @@ public static Inventory GetInventoryById(int id)
             using var fetchCmd = new MySqlCommand(fetchStm, con);
             fetchCmd.Parameters.AddWithValue("@carID", carID);
 
-            bool currentOnHold = false; // Default value if the record is not found
+            bool currentOnHold = false;
 
             using (MySqlDataReader fetchReader = fetchCmd.ExecuteReader())
         {
@@ -135,7 +134,7 @@ public static Inventory GetInventoryById(int id)
             string updateStm = "UPDATE inventory SET onHold = @onHold WHERE carID = @carID";
             using var updateCmd = new MySqlCommand(updateStm, con);
             updateCmd.Parameters.AddWithValue("@carID", carID);
-            updateCmd.Parameters.AddWithValue("@onHold", !currentOnHold); // Toggle the value
+            updateCmd.Parameters.AddWithValue("@onHold", !currentOnHold);
 
             updateCmd.ExecuteNonQuery();
 
